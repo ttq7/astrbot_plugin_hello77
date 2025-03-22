@@ -172,7 +172,7 @@ kobe_text_list = [
     "虚空背打启动！这波啊，这波是《空气の博弈》！🎮 #元宇宙篮球"  # 跨次元联动
 ]
 
-@register("", "hello七七", " ", "1.1", "repo url")
+@register("astrbot_plugin_hello77", "hello七七", "AstrBot 游戏梗自动回复插件", "1.1", "repo url")
 class ArknightsPlugin(Star):
     def __init__(self, context: Context):
         super().__init__(context)
