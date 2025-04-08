@@ -32,12 +32,9 @@ python
   - 崩坏星穹铁道
 - 三国杀
   - 三国杀
-  - 三国
-  - 杀
 - CS:GO
   - CSGO
   - 反恐精英
-  - rush B
 - 绝区零
   - 绝区零
   - ZZZ
@@ -62,11 +59,9 @@ python
   - 鸣潮
 - 王者荣耀
   - 王者荣耀
-  - 王者
   - 农活
 - 守望先锋
   - 守望先锋
-  - OW
   - 屁股
 - 瓦洛兰特
   - 瓦洛兰特
@@ -78,6 +73,10 @@ python
   - 科比
   - 曼巴
   - 直升机
+- 火影忍者
+  - 火影忍者
+- coke
+  - coke  
 # 安装与配置
 环境要求
 Python 3.8+
@@ -105,22 +104,16 @@ python
 new_game_text = ["新游戏梗1", "新游戏梗2"]
 new_game_images = ["https://image1.url", "https://image2.url"]
 
-
-添加关键词匹配：
-python
-elif "新游戏" in text or "NG" in text:
-    yield event.make_result() \
-        .message(random.choice(new_game_text)) \
-        .url_image(random.choice(new_game_images))
-
-
 # 高级功能
 冷却机制：添加 SessionFilter 实现触发间隔控制
 权限管理：通过 @permission_type 限制使用范围
 LSTM 预测：结合大模型实现更智能的回复
 版本说明
-当前版本：1.2
+当前版本：1.3
 更新日志：
-新增 3 款游戏支持
+新增 2 - 火影忍者
+- coke
 优化图片加载稳定性
 添加正则表达式匹配
+优化了结构
+去除了ow等
