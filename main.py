@@ -4,7 +4,7 @@ import requests  # 导入requests库
 from astrbot.api.star import Context, Star, register
 from astrbot.api.event import filter, AstrMessageEvent, MessageEventResult
 from astrbot.api.event.filter import event_message_type, EventMessageType
-from astrbot.api.message_components import * 
+from astrbot.api.message_components import *
 
 logger = logging.getLogger(__name__)
 
@@ -360,105 +360,98 @@ zzz_image_urls = [
     "https://img2.baidu.com/it/u=3129872027,3051025661&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=800",
     "https://img0.baidu.com/it/u=4178749054,4108357158&fm=253&fmt=auto&app=120&f=JPEG?w=889&h=500"
 ]
+hy_text_list = [
+    "火影は俺の夢だから——梦想的火焰，在我心中永不熄灭。",
+    "永久の美こそ芸术だ」永恒的美才是艺术。",
+    "隠れ里の誓い，忍びの心",
+    "俺が生きていたかどうかなんてな、どうでもいいことだ",
+    "お前も、舞うか？次の舞台で、俺たちの戦いが始まる。——你也想起舞吗？在下一个舞台，我们的战斗即将开始。",
+    "火影の魂，燃えるうちに！（火影之魂，在燃烧中！）*解释*：这句话捕捉了《火影忍者》的核心精神，即热情、奋斗和不懈的追求。它使用了日语中常见的“燃える”一词，形象地表达了火影角色的激情和力量。",
+    "死ぬは辛いよ，しかし仲間を守るためなら、死ぬ価値がある。——死亡虽苦，但为保护同伴，死得其所。",
+    "まっすぐ自分の言葉は負けねぇ，これが俺の忍道だってばよ。——说到做到，这是我的忍道。",
+    "忍びは、暗闇に潜んで、光を待つ存在だ。——忍者，是在黑暗中潜伏，等待光明的存在。",
+    "孤独を味わい、苦難を越え、俺は火影になる！——品尝孤独，跨越苦难，我必将成为火影！",
+    "火影の名を頂戴！その日まで、努力するぞ！——请赐我火影之名！为此，我将不懈努力！",
+    "心に火を灯し、暗闇を照らす。火影の道は、光と影の交わりだ。——点燃心中的火焰，照亮黑暗。火影之道，在于光与影的交织。"
+]
+hy_image_urls = [
+    "https://img0.baidu.com/it/u=1189719382,2198713929&fm=253&fmt=auto&app=120&f=JPEG?w=480&h=270",
+    "https://img2.baidu.com/it/u=3648776018,1847536312&fm=253&fmt=auto&app=120&f=JPEG?w=558&h=500",
+    "https://img2.baidu.com/it/u=2078514065,2007758686&fm=253&fmt=auto&app=120&f=JPEG?w=801&h=500",
+    "https://img1.baidu.com/it/u=380464129,3528444804&fm=253&fmt=auto&app=138&f=JPEG?w=543&h=500",
+    "https://img2.baidu.com/it/u=313541113,2869652478&fm=253&fmt=auto&app=120&f=JPEG?w=625&h=500",
+    "https://img2.baidu.com/it/u=1219477654,1926962816&fm=253&fmt=auto&app=120&f=JPEG?w=667&h=500",
+    "https://img1.baidu.com/it/u=2979371115,3738318276&fm=253&fmt=auto&app=138&f=JPEG?w=814&h=800",
+    "https://img0.baidu.com/it/u=34789941,32205390&fm=253&fmt=auto&app=138&f=JPEG?w=802&h=800"
+]
+coke_text_list = [
+   "小猫老弟",
+    "汗流浃背了吧老弟",
+    "包变脸的老弟",
+    "而我，只想要一个小coke",
+    "有人单挑吗？"
+]
+coke_image_urls = [
+    "https://img2.baidu.com/it/u=1263066009,150523317&fm=253&fmt=auto&app=138&f=JPEG?w=683&h=648",
+    "https://img1.baidu.com/it/u=2668699197,4235415263&fm=253&fmt=auto&app=120&f=JPEG?w=801&h=500",
+    "data:image/jpeg;base64,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",
+    "https://img1.baidu.com/it/u=3926181737,2251189914&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=708",
+    "https://img2.baidu.com/it/u=2380812679,3339432384&fm=253&fmt=auto&app=138&f=JPEG?w=1038&h=800"
+]
 
-
-@register("astrbot_plugin_hello77", "hello七七", "AstrBot 游戏梗自动回复插件", "1.2", "repo url")
-class ArknightsPlugin(Star):
+@register(
+    name="game_meme_plugin",
+    author="hello七七",
+    desc="游戏梗自动回复插件",
+    version="1.3"
+)
+class GameMemePlugin(Star):
     def __init__(self, context: Context):
         super().__init__(context)
 
     @event_message_type(EventMessageType.ALL)
-    async def on_message(self, event: AstrMessageEvent) -> MessageEventResult:
-
+    async def on_message(self, event: AstrMessageEvent):
         msg_obj = event.message_obj
         text = msg_obj.message_str or ""
 
-        logger.debug("=== Debug: AstrBotMessage ===")
-        logger.debug("Bot ID: %s", msg_obj.self_id)
-        logger.debug("Session ID: %s", msg_obj.session_id)
-        logger.debug("Message ID: %s", msg_obj.message_id)
-        logger.debug("Sender: %s", msg_obj.sender)
-        logger.debug("Group ID: %s", msg_obj.group_id)
-        logger.debug("Message Chain: %s", msg_obj.message)
-        logger.debug("Raw Message: %s", msg_obj.raw_message)
-        logger.debug("Timestamp: %s", msg_obj.timestamp)
-        logger.debug("============================")
+        logger.debug(f"收到消息：{text}")
+
+        # 定义统一的消息构造函数
+        def send_game_meme(text_list, image_urls):
+            meme_text = random.choice(text_list)
+            image_url = random.choice(image_urls)
+            return event.make_result().message(meme_text).url_image(image_url)
 
         if "明日方舟" in text or "方舟" in text:
-            mrfz_text = random.choice(mrfz_text_list)
-            image_url = random.choice(mrfz_image_urls)
-            yield event.make_result() \
-                .message(mrfz_text) \
-                .url_image(image_url)
+            yield send_game_meme(mrfz_text_list, mrfz_image_urls)
+        elif "火影" in  text:
+            yield send_game_meme(hy_text_list, hy_image_urls)
+        elif "coke" in text:
+            yield send_game_meme(coke_text_list, coke_image_urls)
         elif "崩坏：星穹铁道" in text or "星穹铁道" in text or "崩铁" in text or "崩坏星穹铁道" in text:
-            xqtd_text = random.choice(xqtd_text_list)
-            image_url = random.choice(xqtd_image_urls)
-            yield event.make_result() \
-                .message(xqtd_text) \
-                .url_image(image_url)
-        elif "王者荣耀" in text or "王者" in text or "农活" in text:
-            wz_text = random.choice(wz_text_list)
-            image_url = random.choice(wz_image_urls)
-            yield event.make_result() \
-                .message(wz_text) \
-                .url_image(image_url)
+            yield send_game_meme(xqtd_text_list, xqtd_image_urls)
+        elif "王者荣耀" in text  or "农活" in text:
+            yield send_game_meme(wz_text_list, wz_image_urls)
         elif "鸣潮" in text:
-            mc_text = random.choice(mc_text_list)
-            image_url = random.choice(mc_image_urls)
-            yield event.make_result() \
-                .message(mc_text) \
-                .url_image(image_url)
+            yield send_game_meme(mc_text_list, mc_image_urls)
         elif "三国杀" in text:
-            sgs_text = random.choice(sgs_text_list)
-            image_url = random.choice(sgs_image_urls)
-            yield event.make_result() \
-                .message(sgs_text) \
-                .url_image(image_url)
+            yield send_game_meme(sgs_text_list, sgs_image_urls)
         elif "英雄联盟" in text or "LOL" in text or "撸啊撸" in text or "lol" in text:
-            lol_text = random.choice(lol_text_list)
-            image_url = random.choice(lol_image_urls)
-            yield event.make_result() \
-                .message(lol_text) \
-                .url_image(image_url)
+            yield send_game_meme(lol_text_list, lol_image_urls)
         elif "瓦洛兰特" in text or "VALORANT" in text.lower() or "无畏契约" in text or "瓦" in text:
-            valorant_text = random.choice(valorant_text_list)
-            image_url = random.choice(valorant_image_urls)
-            yield event.make_result() \
-                .message(valorant_text) \
-                .url_image(image_url)
+            yield send_game_meme(valorant_text_list, valorant_image_urls)
         elif "曼波" in text:
-            mambo_text = random.choice(mambo_text_list)
-            image_url = random.choice(mambo_image_urls)
-            yield event.make_result() \
-                .message(mambo_text) \
-                .url_image(image_url)
+            yield send_game_meme(mambo_text_list, mambo_image_urls)
         elif "CSGO" in text.upper() or "反恐精英" in text or "rush B" in text.upper():
-            csgo_text = random.choice(csgo_text_list)
-            image_url = random.choice(csgo_image_urls)
-            yield event.make_result() \
-                .message(csgo_text) \
-                .url_image(image_url)
-        elif "守望先锋" in text or "OW" in text.upper() or "屁股" in text:  # "屁股"为OW早期昵称
-            ow_text = random.choice(ow_text_list)
-            image_url = random.choice(ow_image_urls)
-            yield event.make_result() \
-                .message(ow_text) \
-                .url_image(image_url)
+            yield send_game_meme(csgo_text_list, csgo_image_urls)
+        elif "守望先锋" in text.upper() or "屁股" in text:
+            yield send_game_meme(ow_text_list, ow_image_urls)
         elif "金铲铲" in text or "铲子" in text or "云顶" in text:
-            jcc_text = random.choice(jcc_text_list)
-            image_url = random.choice(jcc_image_urls)
-            yield event.make_result() \
-                .message(jcc_text) \
-                .url_image(image_url)
+            yield send_game_meme(jcc_text_list, jcc_image_urls)
         elif any(keyword in text for keyword in ["牢大", "科比", "曼巴", "直升机"]):
-            kobe_text = random.choice(kobe_text_list)
-            image_url = random.choice(kobe_image_urls)
-            yield event.make_result() \
-                .message(kobe_text) \
-                .url_image(image_url)
-        elif any(keyword in text for keyword in ["绝区零", "ZZZ", "走格子", "新艾利都", "邦布"]):
-            zzz_text = random.choice(zzz_text_list)
-            image_url = random.choice(zzz_image_urls)
-            yield event.make_result() \
-                .message(zzz_text) \
-                .url_image(image_url)
+            yield send_game_meme(kobe_text_list, kobe_image_urls)
+        elif any(keyword in text for keyword in ["绝区零", "走格子", "新艾利都", "邦布"]):
+            yield send_game_meme(zzz_text_list, zzz_image_urls)
+        else:
+            # 非关键词消息不处理，不使用带值的 return
+            return
