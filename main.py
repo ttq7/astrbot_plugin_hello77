@@ -424,7 +424,7 @@ class GameMemePlugin(Star):
 
         if "明日方舟" in text or "方舟" in text:
             yield send_game_meme(mrfz_text_list, mrfz_image_urls)
-        elif "火影" in  text:
+        elif "火影忍者" in  text:
             yield send_game_meme(hy_text_list, hy_image_urls)
         elif "coke" in text:
             yield send_game_meme(coke_text_list, coke_image_urls)
